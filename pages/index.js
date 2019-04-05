@@ -1,366 +1,220 @@
+/* eslint-disable react/jsx-filename-extension */
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { Grid, Col, Row } from 'react-styled-flexboxgrid';
-import styled, { createGlobalStyle } from 'styled-components';
 import Head from 'next/head';
+import fetch from 'isomorphic-unfetch';
 
-const GlobalStyle = createGlobalStyle`
-  body {
-    background-color: #f4f9ff;
-    font-family: 'Open Sans', sans-serif;
+import Section from '../components/Section';
+import Divider from '../components/Divider';
+import BackButton from '../components/BackButton';
+import SearchField from '../components/SearchField';
+import Image from '../components/Image';
+import Button from '../components/Button';
+import InvertedButton from '../components/InvertedButton';
+import CircularImage from '../components/CircularImage';
+import Header from '../components/Header';
+import RelatedCol from '../components/RelatedCol';
+import {
+  Card,
+  CardImage,
+  CardContent,
+  CardHeader,
+  CardExtraContent,
+} from '../components/Card';
+
+export class Index extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      movie: false,
+    };
+
+    this.handleFavourite = this.handleFavourite.bind(this);
   }
-`;
 
-const CircularImage = styled.img`
-  width: 90px;
-  height: auto;
-  font-size: 1rem;
-  border-radius: 500rem;
-  display: inline-block;
-  vertical-align: middle;
-  margin-right: 25px;
-  margin-bottom: 5px;
-`;
+  componentDidMount() {
+    const { movie } = this.props;
 
-const TitleCol = styled(Col)`
-  padding-top: 21px;
-`;
+    const favList = JSON.parse(localStorage.getItem('favList'));
 
-const H1 = styled.span`
-  margin: 0em;
-  font-size: 1.7rem;
-  font-weight: 700;
-  letter-spacing: 2px;
-}`;
-
-const Button = styled.button`
-  width: 100%;
-  margin-bottom: 0.75em;
-  margin-right: 0.25em;
-  cursor: pointer;
-  display: inline-block;
-  min-height: 1em;
-  outline: 0;
-  border: none;
-  vertical-align: baseline;
-  padding: .78571429em 1.5em .78571429em;
-  line-height: 1em;
-  font-style: normal;
-  text-align: center;
-  text-decoration: none;
-  -webkit-tap-highlight-color: transparent;
-  box-shadow: 0 0 0 2px #0074eb inset!important;
-  color: #0074eb!important;
-  background: transparent none!important;
-  font-weight: bold;
-`;
-
-const Divider = styled.div`
-  margin: 1rem 0;
-  line-height: 1;
-  height: 0;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: .05em;
-  color: rgba(0,0,0,.85);
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-  -webkit-tap-highlight-color: transparent;
-  font-size: 1rem;
-  border-top: 2px solid #cde1fa;
-  border-bottom: 2px solid rgba(255,255,255,.1);
-`;
-
-const BackButton = styled.button`
-  margin-bottom: 0.75em;
-  margin-right: 0.25em;
-  cursor: pointer;
-  display: inline-block;
-  min-height: 1em;
-  outline: 0;
-  border: none;
-  vertical-align: baseline;
-  padding: .78571429em 1.5em .78571429em;
-  line-height: 1em;
-  font-style: normal;
-  text-align: center;
-  text-decoration: none;
-  -webkit-tap-highlight-color: transparent;
-  box-shadow: 0 0 0 2px #0074eb inset!important;
-  color: #fff !important;
-  background: #0074eb !important;
-  font-weight: bold;
-  border-radius: 5px;
-`;
-
-const BlueButton = styled.button`
-  margin-bottom: 0.75em;
-  margin-right: 0.25em;
-  cursor: pointer;
-  display: inline-block;
-  min-height: 1em;
-  outline: 0;
-  border: none;
-  vertical-align: baseline;
-  padding: .78571429em 1.5em .78571429em;
-  line-height: 1em;
-  font-style: normal;
-  text-align: center;
-  text-decoration: none;
-  -webkit-tap-highlight-color: transparent;
-  box-shadow: 0 0 0 2px #0074eb inset!important;
-  color: #fff !important;
-  background: #0074eb !important;
-  font-weight: bold;
-  border-radius: 5px;
-  width: 100%;
-`;
-
-const Input = styled.input`
-  margin: 0;
-  max-width: 100%;
-  -webkit-box-flex: 1;
-  -ms-flex: 1 0 auto;
-  flex: 1 0 auto;
-  outline: 0;
-  -webkit-tap-highlight-color: rgba(255,255,255,0);
-  text-align: left;
-  line-height: 1.21428571em;
-  font-family: Lato,'Helvetica Neue',Arial,Helvetica,sans-serif;
-  padding: .67857143em 1em;
-  background: #fff;
-  border: 1px solid rgba(34,36,38,.15);
-  color: rgba(0,0,0,.87);
-  border-radius: .28571429rem;
-  -webkit-transition: border-color .1s ease,-webkit-box-shadow .1s ease;
-  transition: border-color .1s ease,-webkit-box-shadow .1s ease;
-  transition: box-shadow .1s ease,border-color .1s ease;
-  transition: box-shadow .1s ease,border-color .1s ease,-webkit-box-shadow .1s ease;
-  -webkit-box-shadow: none;
-  box-shadow: none;
-  font-size: 100%;
-
-  &:focus {
-    border-color: #85b7d9;
-    background: #fff;
-    color: rgba(0,0,0,.8);
-    -webkit-box-shadow: none;
-    box-shadow: none;
-  }
-`;
-
-const BigInput = styled.div`
-  position: relative;
-  font-weight: 400;
-  display: -webkit-inline-box;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-  color: rgba(0,0,0,.87);
-  font-size: 1.1em;
-  width: 100%;
-`;
-
-const Section = styled.div`
-  position: relative;
-  p {
-    font-size: 20px;
-  }
-`;
-
-const Image = styled.img`
-  float: right;
-  margin-right: 0;
-  margin-bottom: 1em;
-  margin-left: 1em;
-  width: 315px;
-  height: auto;
-`;
-
-const Card = styled.div`
-  margin: 1em 0;
-  max-width: 100%;
-  position: relative;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-  -ms-flex-direction: column;
-  flex-direction: column;
-  width: 290px;
-  min-height: 0;
-  background: #fff;
-  padding: 0;
-  border: none;
-  border-radius: .28571429rem;
-  -webkit-box-shadow: 0 1px 3px 0 #d4d4d5, 0 0 0 1px #d4d4d5;
-  box-shadow: 0 1px 3px 0 #d4d4d5, 0 0 0 1px #d4d4d5;
-  -webkit-transition: -webkit-box-shadow .1s ease,-webkit-transform .1s ease;
-  transition: -webkit-box-shadow .1s ease,-webkit-transform .1s ease;
-  transition: box-shadow .1s ease,transform .1s ease;
-  transition: box-shadow .1s ease,transform .1s ease,-webkit-box-shadow .1s ease,-webkit-transform .1s ease;
-  z-index: '';
-
-  .image {
-    position: relative;
-    display: block;
-    -webkit-box-flex: 0;
-    -ms-flex: 0 0 auto;
-    flex: 0 0 auto;
-    padding: 0;
-    background: rgba(0,0,0,.05);
-
-    img {
-      display: block;
-      width: 100%;
-      height: auto;
-      border-radius: inherit;
+    let fav = false;
+    let favColor = '#7FA7F7';
+    if (favList) {
+      if (favList.indexOf(movie.id) !== -1) {
+        fav = true;
+        favColor = '#e4cd00';
+      }
     }
+
+    this.setState({
+      movie: {
+        ...movie,
+        fav,
+        favColor,
+      },
+    });
   }
 
-  .content {
-    -webkit-box-flex: 1;
-    -ms-flex-positive: 1;
-    flex-grow: 1;
-    border: none;
-    background: 0 0;
-    margin: 0;
-    padding: 1em 1em;
-    -webkit-box-shadow: none;
-    box-shadow: none;
-    font-size: 1em;
-    border-radius: 0;
+  handleFavourite() {
+    const { movie } = this.state;
 
-    .header {
-      font-weight: 700;
-      font-size: 1.1em;
-      margin-top: -.21425em;
-      line-height: 1.28571429em;
+    const favList = JSON.parse(localStorage.getItem('favList')) || [];
+
+    let fav;
+    let favColor;
+
+    const index = favList.indexOf(movie.id);
+    if (index !== -1) {
+      fav = false;
+      favColor = '#7FA7F7';
+      favList.splice(index, 1);
+    } else {
+      fav = true;
+      favColor = '#e4cd00';
+      favList.push(movie.id);
     }
+
+    localStorage.setItem('favList', JSON.stringify(favList));
+
+    this.setState({
+      movie: {
+        ...movie,
+        fav,
+        favColor,
+      },
+    });
   }
 
-  &:first-child {
-    border-radius: .28571429rem .28571429rem 0 0!important;
-    border-top: none!important;
+  render() {
+    const { related } = this.props;
+    const { movie } = this.state;
+
+    return (
+      <Grid>
+        <Head>
+          <title>Movie App</title>
+        </Head>
+
+        <Row>
+          <Col xs={12} sm={6} md={10} lg={10}>
+            <Section paddedTop>
+              <CircularImage src={`https://image.tmdb.org/t/p/w154/${movie.backdrop_path}`} />
+              <Header>{movie.original_title}</Header>
+              <svg
+                onClick={this.handleFavourite}
+                className="pointer"
+                xmlns="http://www.w3.org/2000/svg"
+                width="32"
+                height="32"
+                viewBox="0 0 32 32"
+              >
+                <path fill={movie.favColor} fillRule="evenodd" d="M14.34 26.594l-7.15 3.829a.6.6 0 0 1-.876-.629L8 19.784l-7.15-7.1a.6.6 0 0 1 .335-1.018l9.87-1.461 4.405-9.09a.6.6 0 0 1 1.08 0l4.404 9.09 9.871 1.46a.6.6 0 0 1 .335 1.02l-2.485 2.467A9.956 9.956 0 0 0 24 14c-5.523 0-10 4.477-10 10 0 .897.118 1.767.34 2.594zM24 32a8 8 0 1 1 0-16 8 8 0 0 1 0 16zm3.429-8.871H24.87V20.57A.873.873 0 0 0 24 19.7a.873.873 0 0 0-.871.871v2.558H20.57A.873.873 0 0 0 19.7 24c0 .48.391.871.871.871h2.558v2.558c0 .48.391.871.871.871s.871-.391.871-.871V24.87h2.558c.48 0 .871-.391.871-.871a.873.873 0 0 0-.871-.871z" />
+              </svg>
+            </Section>
+          </Col>
+          <Col xs={12} sm={6} md={2} lg={2}>
+            <InvertedButton>Play Video</InvertedButton>
+            <InvertedButton>Watch Later</InvertedButton>
+            <InvertedButton>Share</InvertedButton>
+          </Col>
+        </Row>
+
+        <Divider />
+
+        <Row>
+          <Col xs={12} sm={6} md={6} lg={8}>
+            <BackButton />
+          </Col>
+          <Col xs={12} sm={6} md={6} lg={4}>
+            <SearchField>
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16">
+                <path fill="#004FEF" fillRule="evenodd" d="M11.732 10.324h-.741l-.263-.253a6.1 6.1 0 0 0 1.389-5.012C11.676 2.45 9.498.367 6.87.048A6.105 6.105 0 0 0 .048 6.87c.319 2.627 2.402 4.805 5.011 5.246a6.1 6.1 0 0 0 5.012-1.39l.253.264v.741l4.278 4.274L16 14.607l-4.268-4.283zm-5.631 0a4.218 4.218 0 0 1-4.223-4.223A4.218 4.218 0 0 1 6.1 1.878 4.218 4.218 0 0 1 10.324 6.1a4.218 4.218 0 0 1-4.223 4.223z" />
+              </svg>
+
+              <input type="text" placeholder="Search for a movie" />
+            </SearchField>
+          </Col>
+          <Col xs={12} sm={12} md={12} lg={12}>
+            <Section>
+              <h2>Sypnosis</h2>
+              <Image
+                floatRight
+                width={315}
+                src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`}
+              />
+              <p>{movie.overview}</p>
+            </Section>
+          </Col>
+        </Row>
+
+        <Row>
+          <Col xs={12} sm={12} md={12} lg={12}>
+            <Section>
+              <h2>Related videos</h2>
+              <Row around="lg">
+                {related.map(item => (
+                  <RelatedCol lg={2} key={item.id}>
+                    <Card>
+                      <CardImage
+                        src={`https://image.tmdb.org/t/p/w500/${item.poster_path}`}
+                        alt={item.original_title}
+                      />
+                      <CardContent>
+                        <CardHeader>{item.original_title}</CardHeader>
+                      </CardContent>
+                      <CardExtraContent>
+                        <Button>Watch</Button>
+                      </CardExtraContent>
+                    </Card>
+                  </RelatedCol>
+                ))}
+              </Row>
+
+              <Row around="lg">
+                <Col xs={12} sm={12} md={2} lg={2}>
+                  <Section paddedTop>
+                    <Button>View All</Button>
+                  </Section>
+                </Col>
+              </Row>
+            </Section>
+          </Col>
+        </Row>
+      </Grid>
+    );
   }
+}
 
-  &:last-child {
-    margin-bottom: 0;
-  }
-`;
+Index.getInitialProps = async function getInitialProps() {
+  const res = await fetch('https://www.themoviedb.org/search/multi?language=en-US&query=alita');
+  const data = await res.json();
 
-const Index = () => (
-  <Grid>
-    <GlobalStyle />
-    <Head>
-      <link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
-    </Head>
-    <Row>
-      <TitleCol xs={12} sm={6} md={10} lg={10}>
-        <CircularImage src="https://semantic-ui.com/images/wireframe/square-image.png" />
-        <H1>Alita: Battle Angel</H1>
-      </TitleCol>
-      <Col xs={12} sm={6} md={2} lg={2}>
-        <Button>Play Video</Button>
-        <Button>Watch Later</Button>
-        <Button>Share</Button>
-      </Col>
-    </Row>
-    <Divider />
-    <Row>
-      <Col xs={12} sm={6} md={6} lg={8}>
-        <BackButton>Back</BackButton>
-      </Col>
-      <Col xs={12} sm={6} lg={6} lg={4}>
-        <BigInput>
-          <Input type="text" placeholder="Search for a movie" />
-        </BigInput>
-      </Col>
-      <Col xs={12} sm={12} md={12} lg={12}>
-        <Section>
-          <h2>Sypnosis</h2>
-          <Image class="ui small left floated image" src="https://m.media-amazon.com/images/M/MV5BNzVhMjcxYjYtOTVhOS00MzQ1LWFiNTAtZmY2ZmJjNjIxMjllXkEyXkFqcGdeQXVyNTc5OTMwOTQ@._V1_.jpg" />
-          <p>Alita: Battle Angel is a 2019 American cyberpunk action film based on the 1990s Japanese manga series Gunnm (known as Battle Angel Alita in the English translation) by Yukito Kishiro. Directed by Robert Rodriguez, the film is written by James Cameron and Laeta Kalogridis and Rosa Salazar stars as the titular heroine Alita, an amnesiac cyborg girl who sets out to learn about her destiny after she awakens in a new body with no past memory of who she is. Christoph Waltz, Jennifer Connelly, Mahershala Ali, Ed Skrein, Jackie Earle Haley and Keean Johnson also star in supporting roles.</p>
-          <p>Originally announced in 2003, production on the release of the film was repeatedly delayed due to Cameron's work on Avatar and its sequels. After years of the film languishing in development hell, Rodriguez was announced as the film's director in April 2016, with Salazar being cast the following month. Principal photography began in Austin, Texas, in October 2016, lasting through February 2017.</p>
-        </Section>
-      </Col>
-    </Row>
+  const movie = data.results[0];
 
-    <Row>
-      <Col xs={12} sm={12} md={12} lg={12}>
-        <Section>
-          <h2>Related videos</h2>
-          <Row>
-          <Col lg={2}>
-            <Card>
-              <div className="image">
-                <img src="https://semantic-ui.com/images/avatar2/large/kristy.png" />
-              </div>
-              <div className="content">
-                <span className="header">Pulp Fictions</span>
-              </div>
-              <div className="extra content">
-                <BlueButton>Watch</BlueButton>
-              </div>
-            </Card>
-          </Col>
-          <Col lg={2}>
-            <Card>
-              <div className="image">
-                <img src="https://semantic-ui.com/images/avatar2/large/kristy.png" />
-              </div>
-              <div className="content">
-                <span className="header">The Wizard of Oz</span>
-              </div>
-              <div className="extra content">
-                <BlueButton>Watch</BlueButton>
-              </div>
-            </Card>
-          </Col>
-          <Col lg={2}>
-            <Card>
-              <div className="image">
-                <img src="https://semantic-ui.com/images/avatar2/large/kristy.png" />
-              </div>
-              <div className="content">
-                <span className="header">Star Wars: The Last Jedi</span>
-              </div>
-              <div className="extra content">
-                <BlueButton>Watch</BlueButton>
-              </div>
-            </Card>
-          </Col>
-          <Col lg={2}>
-            <Card>
-              <div className="image">
-                <img src="https://semantic-ui.com/images/avatar2/large/kristy.png" />
-              </div>
-              <div className="content">
-                <span className="header">Harry Potter and the Philisopher's Stone</span>
-              </div>
-              <div className="extra content">
-                <BlueButton>Watch</BlueButton>
-              </div>
-            </Card>
-          </Col>
-          <Col lg={2}>
-            <Card>
-              <div className="image">
-                <img src="https://semantic-ui.com/images/avatar2/large/kristy.png" />
-              </div>
-              <div className="content">
-                <span className="header">Jurassic Park</span>
-              </div>
-              <div className="extra content">
-                <BlueButton>Watch</BlueButton>
-              </div>
-            </Card>
-          </Col>
-          </Row>
-        </Section>
-      </Col>
-    </Row>
-  </Grid>
-);
+  const res2 = await fetch(`https://api.themoviedb.org/3/movie/${movie.id}/similar?api_key=9034cc043d42809e961504fa9fc98d34&language=en-US&page=1`);
+  const relData = await res2.json();
+  const related = relData.results.slice(0, 5);
+
+  return {
+    movie,
+    related,
+  };
+};
+
+const Movie = PropTypes.shape({
+  backdrop_path: PropTypes.string,
+  original_title: PropTypes.string,
+  poster_path: PropTypes.string,
+  overview: PropTypes.string,
+});
+
+const RelatedMovies = PropTypes.arrayOf(Movie);
+
+Index.propTypes = {
+  movie: Movie.isRequired,
+  related: RelatedMovies.isRequired,
+};
 
 export default Index;
