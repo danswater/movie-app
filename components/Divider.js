@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export default styled.div`
+const Divider = styled.div`
   margin: 1rem 0;
   line-height: 1;
   height: 0;
@@ -17,3 +17,5 @@ export default styled.div`
   border-top: 2px solid #cde1fa;
   border-bottom: 2px solid rgba(255,255,255,.1);
 `;
+
+export default Divider;

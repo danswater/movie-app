@@ -37,15 +37,14 @@ export class Index extends Component {
   componentDidMount() {
     const { movie } = this.props;
 
-    const favList = JSON.parse(localStorage.getItem('favList'));
+    const favList = JSON.parse(localStorage.getItem('favList')) || [];
 
     let fav = false;
     let favColor = '#7FA7F7';
-    if (favList) {
-      if (favList.indexOf(movie.id) !== -1) {
-        fav = true;
-        favColor = '#e4cd00';
-      }
+
+    if (favList.indexOf(movie.id) !== -1) {
+      fav = true;
+      favColor = '#e4cd00';
     }
 
     this.setState({
@@ -104,10 +103,10 @@ export class Index extends Component {
               <Header>{movie.original_title}</Header>
               <svg
                 onClick={this.handleFavourite}
-                className="pointer"
+                className="favourite pointer"
                 xmlns="http://www.w3.org/2000/svg"
-                width="32"
-                height="32"
+                width="24"
+                height="24"
                 viewBox="0 0 32 32"
               >
                 <path fill={movie.favColor} fillRule="evenodd" d="M14.34 26.594l-7.15 3.829a.6.6 0 0 1-.876-.629L8 19.784l-7.15-7.1a.6.6 0 0 1 .335-1.018l9.87-1.461 4.405-9.09a.6.6 0 0 1 1.08 0l4.404 9.09 9.871 1.46a.6.6 0 0 1 .335 1.02l-2.485 2.467A9.956 9.956 0 0 0 24 14c-5.523 0-10 4.477-10 10 0 .897.118 1.767.34 2.594zM24 32a8 8 0 1 1 0-16 8 8 0 0 1 0 16zm3.429-8.871H24.87V20.57A.873.873 0 0 0 24 19.7a.873.873 0 0 0-.871.871v2.558H20.57A.873.873 0 0 0 19.7 24c0 .48.391.871.871.871h2.558v2.558c0 .48.391.871.871.871s.871-.391.871-.871V24.87h2.558c.48 0 .871-.391.871-.871a.873.873 0 0 0-.871-.871z" />
