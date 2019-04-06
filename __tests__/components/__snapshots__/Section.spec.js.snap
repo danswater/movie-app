@@ -1,0 +1,35 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Components Image should render section with default styles 1`] = `
+.c0 {
+  position: relative;
+  height: 100%;
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.c0 p {
+  font-size: 20px;
+}
+
+<div
+  className="c0"
+/>
+`;
+
+exports[`Components Image should render section with margin props 1`] = `
+.c0 {
+  position: relative;
+  height: 100%;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+}
+
+.c0 p {
+  font-size: 20px;
+}
+
+<div
+  className="c0"
+/>
+`;

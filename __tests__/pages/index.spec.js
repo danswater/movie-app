@@ -2,8 +2,10 @@
 import React from 'react';
 import { shallow, mount } from 'enzyme';
 import IndexPage from '../../pages/index';
-import Section from '../../components/Section';
-import RelatedCol from '../../components/RelatedCol';
+import HeaderSection from '../../components/HeaderSection';
+import DetailsSection from '../../components/DetailsSection';
+import SearchSection from '../../components/SearchSection';
+import RelatedMovieSection from '../../components/RelatedMovieSection';
 
 describe('Pages', () => {
   const movie = {
@@ -26,8 +28,10 @@ describe('Pages', () => {
       const relatedMovies = [movie];
 
       const wrap = shallow(<IndexPage related={relatedMovies} movie={movie} />);
-      expect(wrap.find(Section)).toHaveLength(4);
-      expect(wrap.find(RelatedCol)).toHaveLength(1);
+      expect(wrap.find(HeaderSection)).toHaveLength(1);
+      expect(wrap.find(DetailsSection)).toHaveLength(1);
+      expect(wrap.find(SearchSection)).toHaveLength(1);
+      expect(wrap.find(RelatedMovieSection)).toHaveLength(1);
     });
 
     it('should render and set fav to true', () => {
@@ -36,8 +40,10 @@ describe('Pages', () => {
       const relatedMovies = [movie];
 
       const wrap = shallow(<IndexPage related={relatedMovies} movie={movie} />);
-      expect(wrap.find(Section)).toHaveLength(4);
-      expect(wrap.find(RelatedCol)).toHaveLength(1);
+      expect(wrap.find(HeaderSection)).toHaveLength(1);
+      expect(wrap.find(DetailsSection)).toHaveLength(1);
+      expect(wrap.find(SearchSection)).toHaveLength(1);
+      expect(wrap.find(RelatedMovieSection)).toHaveLength(1);
     });
 
     it('should render and set fav to true', () => {
@@ -45,9 +51,8 @@ describe('Pages', () => {
 
       const relatedMovies = [movie];
 
-      const wrap = shallow(<IndexPage related={relatedMovies} movie={movie} />);
-      expect(wrap.find(Section)).toHaveLength(4);
-      expect(wrap.find(RelatedCol)).toHaveLength(1);
+      const wrap = mount(<IndexPage related={relatedMovies} movie={movie} />);
+      expect(wrap.state('movie').fav).toBe(true);
     });
 
     describe('handleFavourite', () => {

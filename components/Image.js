@@ -5,7 +5,6 @@ const Image = styled.img`
   margin-bottom: 1em;
   text-align: center;
   width: 100%;
-  float: ${props => (props.floatRight ? 'right' : 'none')};
   height: auto;
 `;
 
