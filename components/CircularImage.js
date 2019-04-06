@@ -9,6 +9,7 @@ const CircularImage = styled.img`
   vertical-align: middle;
   margin-right: 25px;
   margin-bottom: 5px;
+  float: left;
 `;
 
 export default CircularImage;

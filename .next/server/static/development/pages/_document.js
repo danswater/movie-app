@@ -2248,7 +2248,7 @@ __webpack_require__.r(__webpack_exports__);
 var _jsxFileName = "/home/francis/projects/movie-app/pages/_document.js";
 
 function _templateObject() {
-  var data = Object(_babel_runtime_corejs2_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_7__["default"])(["\n  body {\n    background-color: #f4f9ff;\n    font-family: 'Open Sans', sans-serif;\n\n    .pointer {\n      cursor: pointer;\n    }\n  }\n"]);
+  var data = Object(_babel_runtime_corejs2_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_7__["default"])(["\n  body {\n    height: 100%;\n    width: 100%;\n    margin: 0;\n\n    background-color: #f4f9ff;\n    font-family: 'Open Sans', sans-serif;\n\n    .pointer {\n      cursor: pointer;\n    }\n\n    .cleafix {\n      clear: both;\n    }\n\n    .margin-bottom-20 {\n      margin-bottom: 20px;\n    }\n  }\n"]);
 
   _templateObject = function _templateObject() {
     return data;
@@ -2280,19 +2280,19 @@ function (_Document) {
         lang: "en",
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 20
+          lineNumber: 32
         },
         __self: this
       }, react__WEBPACK_IMPORTED_MODULE_8___default.a.createElement(GlobalStyle, {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 21
+          lineNumber: 33
         },
         __self: this
       }), react__WEBPACK_IMPORTED_MODULE_8___default.a.createElement(next_document__WEBPACK_IMPORTED_MODULE_9__["Head"], {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 22
+          lineNumber: 34
         },
         __self: this
       }, react__WEBPACK_IMPORTED_MODULE_8___default.a.createElement("link", {
@@ -2301,25 +2301,33 @@ function (_Document) {
         type: "text/css",
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 23
+          lineNumber: 35
+        },
+        __self: this
+      }), react__WEBPACK_IMPORTED_MODULE_8___default.a.createElement("meta", {
+        name: "viewport",
+        content: "width=device-width, initial-scale=1.0",
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 36
         },
         __self: this
       }), this.props.styleTags), react__WEBPACK_IMPORTED_MODULE_8___default.a.createElement("body", {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 27
+          lineNumber: 40
         },
         __self: this
       }, react__WEBPACK_IMPORTED_MODULE_8___default.a.createElement(next_document__WEBPACK_IMPORTED_MODULE_9__["Main"], {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 28
+          lineNumber: 41
         },
         __self: this
       }), react__WEBPACK_IMPORTED_MODULE_8___default.a.createElement(next_document__WEBPACK_IMPORTED_MODULE_9__["NextScript"], {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 29
+          lineNumber: 42
         },
         __self: this
       })));
@@ -2337,7 +2345,7 @@ MovieDocument.getInitialProps = function getInitialProps(_ref) {
       return sheet.collectStyles(react__WEBPACK_IMPORTED_MODULE_8___default.a.createElement(App, Object(_babel_runtime_corejs2_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_1__["default"])({}, props, {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 40
+          lineNumber: 53
         },
         __self: this
       })));

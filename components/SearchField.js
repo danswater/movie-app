@@ -8,6 +8,7 @@ const SearchField = styled.div`
   display: inline-flex;
   color: rgba(0,0,0,.87);
   font-size: 1.1em;
+  float: right;
   width: 100%;
 
   svg {
@@ -52,7 +53,7 @@ const SearchField = styled.div`
     -webkit-box-shadow: none;
     box-shadow: none;
     font-size: 100%;
-    padding-left: 2.67142857em!important;
+    text-indent: 28px;
 
     &:focus {
       border-color: #85b7d9;

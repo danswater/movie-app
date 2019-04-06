@@ -11,7 +11,7 @@ const Card = styled.div`
   -webkit-box-direction: normal;
   -ms-flex-direction: column;
   flex-direction: column;
-  width: 290px;
+  width: 100%;
   min-height: 0;
   background: #fff;
   padding: 0;
@@ -23,7 +23,8 @@ const Card = styled.div`
   transition: -webkit-box-shadow .1s ease,-webkit-transform .1s ease;
   transition: box-shadow .1s ease,transform .1s ease;
   transition: box-shadow .1s ease,transform .1s ease,-webkit-box-shadow .1s ease,-webkit-transform .1s ease;
-  z-index: '';
+  margin: 0 auto;
+  margin-bottom: 15px !important;
 
   &:first-child {
     border-radius: .28571429rem .28571429rem 0 0!important;

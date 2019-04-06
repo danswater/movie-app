@@ -10,7 +10,7 @@ const InvertedButton = styled.button`
   outline: 0;
   border: none;
   vertical-align: baseline;
-  padding: .78571429em 1.5em .78571429em;
+  padding: .78571429em 0.2em .78571429em;
   line-height: 1em;
   font-style: normal;
   text-align: center;
@@ -19,7 +19,8 @@ const InvertedButton = styled.button`
   box-shadow: 0 0 0 2px #0855f4 inset!important;
   color: #0855f4!important;
   background: transparent none!important;
-  font-weight: bold;
+  font-weight: 500;
+  font-size: 12px;
 `;
 
 export default InvertedButton;

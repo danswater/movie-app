@@ -2,9 +2,9 @@ import styled from 'styled-components';
 
 const Header = styled.span`
   margin: 0em;
-  font-size:  1.7rem;
+  font-size:  24px;
   font-weight: 700;
-  letter-spacing: 2px;
+  letter-spacing: 1px;
   margin-right: 15px;
 }`;
 

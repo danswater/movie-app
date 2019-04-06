@@ -11,7 +11,7 @@ const BackButton = styled.button`
   outline: 0;
   border: none;
   vertical-align: baseline;
-  padding: .78571429em 1.5em .78571429em;
+  padding: .6em 0.9em .6em;
   line-height: 1em;
   font-style: normal;
   text-align: center;
@@ -23,7 +23,7 @@ const BackButton = styled.button`
   font-weight: bold;
   border-radius: 5px;
   position: relative;
-  padding-left: 30px;
+  padding-left: 25px;
 
   svg {
     left: 8px;
