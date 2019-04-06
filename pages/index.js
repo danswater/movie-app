@@ -41,14 +41,16 @@ export class Index extends Component {
       favColor = '#e4cd00';
     }
 
-    this.setState({
-      movie: {
-        ...movie,
-        fav,
-        favColor,
-      },
-      loading: false,
-    });
+    setTimeout(() => {
+      this.setState({
+        movie: {
+          ...movie,
+          fav,
+          favColor,
+        },
+        loading: false,
+      });
+    }, 3000);
   }
 
   handleFavourite() {
@@ -102,7 +104,7 @@ export class Index extends Component {
         <Divider />
 
         <Section>
-          <SearchSection />
+          <SearchSection loading={loading} />
         </Section>
 
         <Section>

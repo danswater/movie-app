@@ -20,6 +20,10 @@ const GlobalStyle = createGlobalStyle`
       clear: both;
     }
 
+    margin-bottom-0 {
+      margin-bottom: 0;
+    }
+
     .margin-bottom-20 {
       margin-bottom: 20px;
     }

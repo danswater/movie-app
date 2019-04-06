@@ -2,6 +2,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Col, Row } from 'react-styled-flexboxgrid';
+import CardLoader from './CardLoader';
 import { POSTER_URL } from '../../utils/constants';
 import Button from '../Button';
 import Section from '../Section';
@@ -21,7 +22,7 @@ const index = ({ loading, related }) => (
         <React.Fragment>
           <Row>
             {related.map(item => (
-              <Col xs={12} sm={6} md={2} lg={2} key={item.id}>
+              <Col xs={6} sm={6} md={2} lg={2} key={item.id}>
                 <Card>
                   <CardImage
                     src={`${POSTER_URL}${item.poster_path}`}
@@ -43,6 +44,31 @@ const index = ({ loading, related }) => (
               <Section marginTop>
                 <Button>View All</Button>
               </Section>
+            </Col>
+          </Row>
+        </React.Fragment>
+      )}
+
+      {loading && (
+        <React.Fragment>
+          <Row>
+            <Col xs={6} sm={6} md={2} lg={2}>
+              <CardLoader />
+            </Col>
+            <Col xs={6} sm={6} md={2} lg={2}>
+              <CardLoader />
+            </Col>
+            <Col xs={6} sm={6} md={2} lg={2}>
+              <CardLoader />
+            </Col>
+            <Col xs={6} sm={6} md={2} lg={2}>
+              <CardLoader />
+            </Col>
+            <Col xs={6} sm={6} md={2} lg={2}>
+              <CardLoader />
+            </Col>
+            <Col xs={6} sm={6} md={2} lg={2}>
+              <CardLoader />
             </Col>
           </Row>
         </React.Fragment>

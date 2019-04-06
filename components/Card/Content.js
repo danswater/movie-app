@@ -13,13 +13,6 @@ const Content = styled.div`
   font-size: 1em;
   border-radius: 0;
   height: 3em;
-
-  .header {
-    font-weight: 700;
-    font-size: 1.1em;
-    margin-top: -.21425em;
-    line-height: 1.28571429em;
-  }
 `;
 
 export default Content;

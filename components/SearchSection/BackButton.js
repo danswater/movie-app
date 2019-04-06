@@ -28,7 +28,7 @@ const BackButton = styled.button`
   svg {
     left: 8px;
     position: absolute;
-    top: 9px;
+    top: 7px;
   }
 `;
 
