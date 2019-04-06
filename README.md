@@ -10,7 +10,9 @@
 - now
 
 Run app in local dev
+
 `npm run dev`
 
-Deployment
+### Deployment
+
 [now](https://nextjs.org/learn/basics/deploying-a-nextjs-app)
